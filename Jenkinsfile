@@ -130,27 +130,26 @@ pipeline {
             }
         }
     }
-
-    def getDatabaseName() {
-        def companyName = "${params.COMPANY_NAME}".replaceAll(/[^a-zA-Z0-9]/, '').toLowerCase();
-
-        if (companyName.length() > 8) {
-            companyName = companyName.take(8);
-        }
-        def uuidPart = UUID.randomUUID().toString().split('-')[-1]
-        return "${companyName}_${uuidPart}"
-    }
-
-    def getServerName() {
-        def dbName = env.DB_NAME;
-        def uuidPart = dbName.split('_')[1];
-        def firstHalf = uuidPart[0..3];
-        def secondHalf = uuidPart[4..7];
-        def reversedUUIDPart = secondHalf+firstHalf;
-
-        return "${dbName.split('_')[0]}_${reversedUUIDPart}"
-    }
-    def destroyServer() {}
-    def deleteDatabase() {}
-
 }
+
+def getDatabaseName() {
+    def companyName = "${params.COMPANY_NAME}".replaceAll(/[^a-zA-Z0-9]/, '').toLowerCase();
+
+    if (companyName.length() > 8) {
+        companyName = companyName.take(8);
+    }
+    def uuidPart = UUID.randomUUID().toString().split('-')[-1]
+    return "${companyName}_${uuidPart}"
+}
+
+def getServerName() {
+    def dbName = env.DB_NAME;
+    def uuidPart = dbName.split('_')[1];
+    def firstHalf = uuidPart[0..3];
+    def secondHalf = uuidPart[4..7];
+    def reversedUUIDPart = secondHalf+firstHalf;
+
+    return "${dbName.split('_')[0]}_${reversedUUIDPart}"
+}
+def destroyServer() {}
+def deleteDatabase() {}
