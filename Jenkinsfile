@@ -122,11 +122,12 @@ pipeline {
         }
         failure {
             echo "Pipeline failed. Please check the logs for details."
-
-            if (env.STAGE > 1) {
-                echo "Rolling back, destroying the server and deleting database"
-                destroyServer()
-                deleteDatabase()
+            script {
+                if (env.STAGE > 1) {
+                    echo "Rolling back, destroying the server and deleting database"
+                    destroyServer()
+                    deleteDatabase()
+                }
             }
         }
     }
