@@ -111,7 +111,7 @@ pipeline {
                     }
 
                     sh """
-                        ssh -o BatchMode=yes root@${serverIP} 'bash /root/refresh-addons.sh || { echo 'Remote sync custom addons script execution failed'; exit 1; }
+                        ssh -o BatchMode=yes root@${serverIP} 'bash /root/refresh-addons.sh' || { echo 'Remote sync custom addons script execution failed'; exit 1; }
                     """
                 }
             }
